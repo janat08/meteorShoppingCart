@@ -1,51 +1,47 @@
 import './images.html';
 import { Images } from '/imports/api/images/images.js';
-import { SimpleSchema } from 'simpl-schema'
-
-Template.images.onCreated(function helloOnCreated() {
-  // counter starts at 0
-  this.counter = new ReactiveVar(0);
+Template.images.onCreated(function () {
+  this.currentUpload = new ReactiveVar(false);
+  console.log(123, Images.findOne())
+  window.a = Images
+  Meteor.subscribe('images.all');
 });
 
 Template.images.helpers({
-  counter() {
-    return Template.instance().counter.get();
+  currentUpload() {
+    return Template.instance().currentUpload.get();
+  },
+  imageFile() {
+    console.log(123, Images.findOne())
+    return Images.findOne();
   },
 });
 
 Template.images.events({
-  'click button'(event, instance) {
-    // increment the counter when button is clicked
-    instance.counter.set(instance.counter.get() + 1);
-  },
-});
+  'change #fileInput'(e, template) {
+    if (e.currentTarget.files && e.currentTarget.files[0]) {
+      // We upload only one file, in case
+      // multiple files were selected
+      const upload = Images.insert({
+        file: e.currentTarget.files[0],
+        streams: 'dynamic',
+        chunkSize: 'dynamic'
+      }, false);
 
-Schemas = {};
+      upload.on('start', function () {
+        template.currentUpload.set(this);
+      });
 
-Schemas.Images = new SimpleSchema({
-  title: {
-    type: String,
-    max: 60
-  },
-  picture: {
-    type: String,
-    autoform: {
-      afFieldInput: {
-        type: 'fileUpload',
-        collection: 'Images',
-        uploadTemplate: 'uploadField', // <- Optional
-        previewTemplate: 'uploadPreview', // <- Optional
-        insertConfig: { // <- Optional, .insert() method options, see: https://github.com/VeliovGroup/Meteor-Files/wiki/Insert-(Upload)
-          meta: {},
-          isBase64: false,
-          transport: 'ddp',
-          streams: 'dynamic',
-          chunkSize: 'dynamic',
-          allowWebWorkers: true
+      upload.on('end', function (error, fileObj) {
+        if (error) {
+          alert('Error during upload: ' + error);
+        } else {
+          alert('File "' + fileObj.name + '" successfully uploaded');
         }
-      }
+        template.currentUpload.set(false);
+      });
+
+      upload.start();
     }
   }
 });
-
-Images.attachSchema(Schemas.Images);

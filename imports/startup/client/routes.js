@@ -5,6 +5,11 @@ import { BlazeLayout } from 'meteor/kadira:blaze-layout';
 import '../../ui/layouts/body/body.js';
 import '../../ui/pages/home/home.js';
 import '../../ui/pages/not-found/not-found.js';
+import '../../ui/pages/images/images.js'
+import '../../ui/pages/cart/cart.js'
+import '../../ui/pages/product/product.js'
+import '../../ui/pages/productForm/productForm.js'
+import '../../ui/pages/products/products.js'
 
 // Set up all routes in the app
 FlowRouter.route('/', {
@@ -14,10 +19,35 @@ FlowRouter.route('/', {
   },
 });
 
+FlowRouter.route('/cart', {
+  name: 'App.images',
+  action() {
+    BlazeLayout.render('App_body', { main: 'cart' });
+  },
+});
+
+FlowRouter.route('/product', {
+  name: 'App.images',
+  action() {
+    BlazeLayout.render('App_body', { main: 'product' });
+  },
+});
 FlowRouter.route('/images', {
   name: 'App.images',
   action() {
     BlazeLayout.render('App_body', { main: 'images' });
+  },
+});
+FlowRouter.route('/productForm', {
+  name: 'App.images',
+  action() {
+    BlazeLayout.render('App_body', { main: 'productForm' });
+  },
+});
+FlowRouter.route('/products', {
+  name: 'App.images',
+  action() {
+    BlazeLayout.render('App_body', { main: 'products' });
   },
 });
 
