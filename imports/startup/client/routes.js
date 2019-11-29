@@ -14,6 +14,13 @@ FlowRouter.route('/', {
   },
 });
 
+FlowRouter.route('/images', {
+  name: 'App.images',
+  action() {
+    BlazeLayout.render('App_body', { main: 'images' });
+  },
+});
+
 FlowRouter.notFound = {
   action() {
     BlazeLayout.render('App_body', { main: 'App_notFound' });

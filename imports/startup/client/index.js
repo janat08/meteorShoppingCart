@@ -2,4 +2,4 @@
 
 import './routes.js';
 
-const LCarts = new Mongo.Collection('');
+const LCarts = new Mongo.Collection(null);
