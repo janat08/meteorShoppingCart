@@ -1,4 +1,7 @@
 <template name="products">
-  <button>Click Me</button>
-  <p>You've pressed the button {{counter}} times.</p>
+  {{#each products}}
+    {{title}}{{price}}
+    {{description}}
+    {{images}}
+  {{/each}}
 </template>

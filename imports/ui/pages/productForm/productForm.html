@@ -1,8 +1,8 @@
 <template name="productForm">
-        <form class="info-link-add">
-        <input type="text" name="title" placeholder="Title" required>
-        <input type="url" name="description" placeholder="Description" required>
-        <input type="number" name="price" placeholder="Price" required>
+        <form class="product-add">
+        <input value={{product.title}} type="text" name="title" placeholder="Title" required>
+        <textarea value={{product.description}} type="text" name="description" placeholder="Description" required></textarea>
+        <input value={{product.price}} type="number" name="price" placeholder="Price" required>
         <input type="submit" name="submit" value="Add new Product">
       </form>
 </template>
