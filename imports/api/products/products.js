@@ -32,7 +32,7 @@ const pSchema = new SimpleSchema({
     },
 }, { tracker: Tracker })
 
-Products.attachSchema(pSchema)
+// Products.attachSchema(pSchema)
 
 
 Products.addLinks({
@@ -46,4 +46,4 @@ Products.addLinks({
 console.log(typeof Products, 321)
 
 
-export {Products, pSchema}
+export default Products
