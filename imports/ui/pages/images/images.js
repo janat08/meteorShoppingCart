@@ -1,9 +1,8 @@
 import './images.html';
 import { Images } from '/imports/api/images/images.js';
+
 Template.images.onCreated(function () {
   this.currentUpload = new ReactiveVar(false);
-  console.log(123, Images.findOne())
-  window.a = Images
   Meteor.subscribe('images.all');
 });
 
@@ -11,9 +10,9 @@ Template.images.helpers({
   currentUpload() {
     return Template.instance().currentUpload.get();
   },
-  imageFile() {
+  imageFiles() {
     console.log(123, Images.findOne())
-    return Images.findOne();
+    return Images.find().fetch();
   },
 });
 
@@ -25,7 +24,11 @@ Template.images.events({
       const upload = Images.insert({
         file: e.currentTarget.files[0],
         streams: 'dynamic',
-        chunkSize: 'dynamic'
+        chunkSize: 'dynamic',
+        meta: {
+          uploader: Meteor.userId(),
+          productName: FlowRouter.getParam("productName")
+        },
       }, false);
 
       upload.on('start', function () {

@@ -32,13 +32,13 @@ FlowRouter.route('/product', {
     BlazeLayout.render('App_body', { main: 'product' });
   },
 });
-FlowRouter.route('/images', {
+FlowRouter.route('/images/:productName', {
   name: 'App.images',
   action() {
     BlazeLayout.render('App_body', { main: 'images' });
   },
 });
-FlowRouter.route('/productForm', {
+FlowRouter.route('/productForm/:productName', {
   name: 'App.images',
   action() {
     BlazeLayout.render('App_body', { main: 'productForm' });

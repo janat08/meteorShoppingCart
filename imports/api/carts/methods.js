@@ -5,9 +5,7 @@ import { check } from 'meteor/check';
 import { Carts } from './carts.js';
 
 Meteor.methods({
-  'carts.insert'(title, url) {
-
-
+  'carts.insert'(products) {
     return Carts.insert({
       url,
       title,
