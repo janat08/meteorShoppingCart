@@ -3,11 +3,10 @@
 import { Mongo } from 'meteor/mongo';
 import SimpleSchema from 'simpl-schema';
 import { Tracker } from 'meteor/tracker';
-import { Images } from '../cols.js'
 
 SimpleSchema.extendOptions(['autoform']);
 
-const Products = new Mongo.Collection('products');
+export const Products = new Mongo.Collection('products');
 
 const pSchema = new SimpleSchema({
     title: {
@@ -32,18 +31,5 @@ const pSchema = new SimpleSchema({
     },
 }, { tracker: Tracker })
 
-// Products.attachSchema(pSchema)
+Products.attachSchema(pSchema)
 
-
-Products.addLinks({
-    'images': {
-        type: 'many',
-        collection: Images.collection,
-        field: 'imageIds',
-    }
-})
-
-console.log(typeof Products, 321)
-
-
-export default Products

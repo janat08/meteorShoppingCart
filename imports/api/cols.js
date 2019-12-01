@@ -1,7 +1,7 @@
-import Products from './products/products.js'
-import {Images} from './images/images.js'
+import {Products} from './products/products.js'
+import {ImagesCollection, ImagesFiles} from './images/images.js'
 import {Carts} from './carts/carts.js'
 
-console.log(typeof Products, 322)
+console.log(Products)
 
-export {Carts, Images, Products} 
+export {Carts, ImagesCollection, ImagesFiles, Products} 

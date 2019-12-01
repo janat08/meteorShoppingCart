@@ -2,14 +2,7 @@
 
 import { Mongo } from 'meteor/mongo';
 import { FilesCollection } from 'meteor/ostrio:files';
-import Products from '../products/products.js'
 
-export const Images = new FilesCollection({collectionName: 'Images'});
-console.log(123, typeof Products)
+export const ImagesCollection = new Mongo.Collection('images')
 
-// Images.collection.addLinks({
-//     'products': {
-//         collection: Products,
-//         inversedBy: 'images'
-//     }
-// })
+export const ImagesFiles = new FilesCollection({collection: ImagesCollection});

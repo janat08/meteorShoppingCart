@@ -38,12 +38,19 @@ FlowRouter.route('/images/:productName', {
     BlazeLayout.render('App_body', { main: 'images' });
   },
 });
-FlowRouter.route('/productForm/:productName', {
+
+FlowRouter.route('/productForm', {
   name: 'App.images',
   action() {
     BlazeLayout.render('App_body', { main: 'productForm' });
   },
 });
+// FlowRouter.route('/productForm/:productForm', {
+//   name: 'App.images',
+//   action() {
+//     BlazeLayout.render('App_body', { main: 'productForm' });
+//   },
+// });
 FlowRouter.route('/products', {
   name: 'App.images',
   action() {
