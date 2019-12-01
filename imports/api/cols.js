@@ -4,4 +4,4 @@ import {Carts} from './carts/carts.js'
 
 console.log(typeof Products, 322)
 
-export {Carts, Images, Products}
+export {Carts, Images, Products} 
