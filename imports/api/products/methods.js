@@ -9,28 +9,21 @@ Meteor.methods({
     // check(description, String);
     // check(title, String);
     // check(price, Number);
-    console.log(123, {
-      title,
-      description,
-      price,
-      createdAt: new Date(),
-    })
     var productId = _id
     const update = {
       title,
       description,
       price,
-      imageIds,
       updatedAt: new Date(),
     }
-
+    console.log(imageIds)
     if (!productId) {
-      productId = Products.insert({ ...update, createdAt: new Date() })
+      productId = Products.insert({ ...update, createdAt: new Date(), imageIds: imageIds })
     } else {
-      Products.update(productId, { $set: update })
+      Products.update(productId, { $set: {...update}, $addToSet: {imageIds: {$each: imageIds}}})
     }
 
-    ImagesFiles.update({ _id: { $in: imageIds } }, { meta: { productId: productId } })
+    const updatedI = ImagesFiles.update({ _id: { $in: imageIds } }, {$set:{ meta: { productId: productId }} })
     return productId
 
   },

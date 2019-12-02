@@ -2,16 +2,12 @@
 
 import { Meteor } from 'meteor/meteor';
 import { check } from 'meteor/check';
-import { Images } from './images.js';
+import { ImagesFiles, Products } from '../cols.js';
 
 Meteor.methods({
-  'images.insert'(title, url) {
-
-
-    return Images.insert({
-      url,
-      title,
-      createdAt: new Date(),
-    });
+  'images.remove'(id) {
+    const productId = ImagesFiles.findOne(id).meta.productId
+    Products.update(productId, { $pull: { imageIds: id } })
+    return ImagesFiles.remove(id);
   },
 });
