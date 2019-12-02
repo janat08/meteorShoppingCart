@@ -1,8 +1,9 @@
 <template name="product">
   {{#with product}}
-    {{title}}
-    {{price}}
-    {{description}}
+    Title: {{title}}
+    Price: {{price}}
+    Description: {{description}}
+    <a href='/productForm/{{_id}}'><button>Edit</button></a>
   {{/with}}
   <button class="jsBuy">buy</button>
 </template>

@@ -12,7 +12,8 @@ import '../../ui/pages/productForm/productForm.js'
 import '../../ui/pages/products/products.js'
 
 window.SubsCache = new SubsCache(5, 10);
-window.LCarts = new Mongo.Collection(null);
+// window.LCarts = new Mongo.Collection(null);
+// new LocalPersist(new Mongo.Collection(null), "sdf");
 
 // Set up all routes in the app
 FlowRouter.route('/', {
@@ -30,7 +31,7 @@ FlowRouter.route('/cart', {
 });
 
 FlowRouter.route('/product/:productId', {
-  name: 'App.images',
+  name: 'App.product',
   action() {
     BlazeLayout.render('App_body', { main: 'product' });
   },

@@ -1,8 +1,10 @@
-<template name="cart">
+<template name="cartProduct">
   {{#with product}}
-    {{title}}
-    {{price}}
-    {{count}}
+    Title: {{product.title}}
+    Price: {{product.price}}
+    Count: {{count}}
+    <button class="jsDecrement">Decrement</button>
+    <button class="jsIncrement">Increment</button>
     <button class="jsRemove">Remove</button>
   {{/with}}
 </template>

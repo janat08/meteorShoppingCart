@@ -23,7 +23,7 @@ less                    # Leaner CSS language
 
 meteortesting:mocha               # A package for writing and running your meteor app and package tests with mocha
 johanbrook:publication-collector  # Test a Meteor publication by collecting its output
-#ostrio:files
+ostrio:files
 accounts-password@1.5.1
 #ostrio:autoform-files
 #aldeed:collection2
@@ -31,3 +31,5 @@ accounts-password@1.5.1
 cultofcoders:grapher
 ccorcos:subs-cache
 babrahams:constellation
+ostrio:flow-router-extra
+jeffm:local-persist

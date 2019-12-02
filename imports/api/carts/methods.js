@@ -6,10 +6,17 @@ import { Carts } from './carts.js';
 
 Meteor.methods({
   'carts.insert'(products) {
-    return Carts.insert({
-      url,
-      title,
-      createdAt: new Date(),
-    });
+    console.log(this.userId)
+    Carts.upsert({open: {$eq: true}}, {products: products, open: true})
   },
+  'carts.upsert'(id){
+    Carts.upsert({open: {$eq: true}, productId: {$eq: id}}, {$set: {open: true, productId: id}, $inc: {count: 1}})
+  },
+  'carts.decrement'(id){
+    Carts.update({open: {$eq: true}, productId: {$eq: id}, count: {$gt: 1}}, {$inc: {count: -1}})
+  },
+  'carts.remove'(id){
+    Carts.remove({productId: id, open: true})
+  }
+
 });

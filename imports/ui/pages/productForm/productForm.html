@@ -1,4 +1,18 @@
 <template name="productForm">
+   {{#each imageFile in imageFiles}}
+        <img src="{{imageFile.link}}" alt="{{imageFile.name}}" />
+   {{else}}
+        No Images uploaded
+   {{/each}}
+   
+   <br>
+    {{#each currentUpload}}
+    <img src="{{doc.link}}" alt="{{doc.name}}" />
+    Uploading <b>{{upload.file.name}}</b>:
+    <span id="progress">{{upload.progress.get}}%</span>
+  {{/each}}
+      <input id="fileInput" type="file" multiple/>
+
         <form class="product-add">
         <input value={{product.title}} type="text" name="title" placeholder="Title" required>
         <textarea value={{product.description}} type="text" name="description" placeholder="Description" required></textarea>

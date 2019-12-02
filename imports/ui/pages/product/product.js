@@ -20,12 +20,13 @@ Template.product.events({
   'click .jsBuy'(event, instance) {
     // increment the counter when button is clicked
     console.log(instance)
-    const id = FlowRouter.getParam("productId")
-    const prev = LCarts.findOne(id)
-    const obj = {_id: id, count: 1}
-    if (prev && prev.count){
-      obj.count = prev.count+1
-    } 
-    LCarts.update({_id: FlowRouter.getParam("productId")}, obj, {upsert: true})
+    // const id = FlowRouter.getParam("productId")
+    // const prev = LCarts.findOne(id)
+    // const obj = {_id: id, count: 1}
+    // if (prev && prev.count){
+    //   obj.count = prev.count+1
+    // } 
+    // LCarts.update({_id: FlowRouter.getParam("productId")}, obj, {upsert: true})
+    Meteor.call('carts.upsert', FlowRouter.getParam("productId"))
   },
 });

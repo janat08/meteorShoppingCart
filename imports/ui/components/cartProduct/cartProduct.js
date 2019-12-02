@@ -3,10 +3,13 @@ import './cartProduct.html';
 
 Template.cartProduct.events({
   'click .jsRemove'(event, instance) {
-    this.product.productId
-    //call method to remove
+    Meteor.call('carts.remove', instance.data.product.productId)
   },
-  'click .jsChange'(event, instance){
-      //change count field
+  'click .jsIncrement'(event, instance){
+      Meteor.call('carts.upsert', instance.data.product.productId)
+  },
+    'click .jsDecrement'(event, instance){
+            Meteor.call('carts.decrement', instance.data.product.productId)
+
   }
 });
