@@ -1,6 +1,7 @@
-Cart isn't dumped upon visiting cart, since user may decide to continue shopping
 I'm not deleteing uploaded images, if product creation is canceled
 add cart userid Logic, filter by userid in upsert, and filter by it in template helper
+validate remove methods
+image hrefs aren't added, I suspect I'm suppose to call template helper of sorts
 
 
 made local cart collection persistent, and that failed
