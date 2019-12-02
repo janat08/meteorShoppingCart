@@ -11,7 +11,7 @@ import '../../ui/pages/product/product.js'
 import '../../ui/pages/productForm/productForm.js'
 import '../../ui/pages/products/products.js'
 
-subsCache = new SubsCache(5, 10);
+window.SubsCache = new SubsCache(5, 10);
 
 // Set up all routes in the app
 FlowRouter.route('/', {
@@ -34,7 +34,7 @@ FlowRouter.route('/product', {
     BlazeLayout.render('App_body', { main: 'product' });
   },
 });
-FlowRouter.route('/images/:productName', {
+FlowRouter.route('/images/:productId', {
   name: 'App.images',
   action() {
     BlazeLayout.render('App_body', { main: 'images' });
@@ -47,7 +47,7 @@ FlowRouter.route('/productForm', {
     BlazeLayout.render('App_body', { main: 'productForm' });
   },
 });
-FlowRouter.route('/productForm/:productName', {
+FlowRouter.route('/productForm/:productId', {
   name: 'App.images',
   action() {
     BlazeLayout.render('App_body', { main: 'productForm' });

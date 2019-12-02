@@ -3,7 +3,7 @@ import { Products } from '/imports/api/products/products.js';
 
 Template.products.onCreated(function productsOnCreated() {
      this.autorun(() => {
-        subsCache.subscribe('products.all')
+        SubsCache.subscribe('products.all')
      });
 });
 

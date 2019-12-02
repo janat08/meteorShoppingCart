@@ -8,8 +8,6 @@ SimpleSchema.extendOptions(['autoform']);
 
 export const Products = new Mongo.Collection('products');
 
-Products.friendlySlugs('title');
-
 const pSchema = new SimpleSchema({
     title: {
         type: String,
