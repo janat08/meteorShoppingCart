@@ -8,7 +8,7 @@ Template.productForm.onCreated(function () {
     if (name){
      this.autorun(() => {
         SubsCache.subscribe('products.one', name)
-     });
+     }); 
     }
 });
 
