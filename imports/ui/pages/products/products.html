@@ -3,5 +3,11 @@
     {{title}}{{price}}
     {{description}}
     {{images}}
+    <a href='/product/{{_id}}'>see more</a>
   {{/each}}
+  {{#if allLoaded}}
+  No more products to show
+  {{else}}
+  <button class="loadmore">Load More</button>
+  {{/if}}
 </template>

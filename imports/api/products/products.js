@@ -31,5 +31,5 @@ const pSchema = new SimpleSchema({
     },
 }, { tracker: Tracker })
 
-Products.attachSchema(pSchema)
+// Products.attachSchema(pSchema)
 

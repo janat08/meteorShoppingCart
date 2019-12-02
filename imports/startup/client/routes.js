@@ -28,7 +28,7 @@ FlowRouter.route('/cart', {
   },
 });
 
-FlowRouter.route('/product', {
+FlowRouter.route('/product/:productId', {
   name: 'App.images',
   action() {
     BlazeLayout.render('App_body', { main: 'product' });

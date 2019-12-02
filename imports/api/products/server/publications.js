@@ -3,12 +3,14 @@
 import { Meteor } from 'meteor/meteor';
 import { Products } from '../products.js';
 
-Meteor.publish('products.all', function () {
-  return Products.find();
+const MAX_PRODUCTS = 1000
+
+Meteor.publish('products.all', function (limit, sort = {createdAt: -1}) {
+  return Products.find({}, {sort: sort, limit: Math.min(MAX_PRODUCTS, limit)});
 });
 
-Meteor.publish('products.one', function (name) {
+Meteor.publish('products.one', function (_id) {
   return Products.find({
-      name: {$eq: name}
+      _id: {$eq: _id}
   });
 });
