@@ -26,7 +26,7 @@ Template.products.helpers({
 });
 
 Template.products.events({
-  'click .loadmore'(event, instance) {
+  'click .jsLoadmore'(event, instance) {
     // increment the counter when button is clicked
     const st = instance.state
     st.set('limit', st.get('limit')+10);

@@ -12,6 +12,7 @@ import '../../ui/pages/productForm/productForm.js'
 import '../../ui/pages/products/products.js'
 
 window.SubsCache = new SubsCache(5, 10);
+window.LCarts = new Mongo.Collection(null);
 
 // Set up all routes in the app
 FlowRouter.route('/', {

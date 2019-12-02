@@ -9,5 +9,5 @@ import '../../api/carts/server/publications.js';
 import '../../api/products/methods.js';
 import '../../api/products/server/publications.js';
 
-import '../../api/images/methods.js';
-import '../../api/images/server/publications.js';
+// import '../../api/images/methods.js';
+// import '../../api/images/server/publications.js';

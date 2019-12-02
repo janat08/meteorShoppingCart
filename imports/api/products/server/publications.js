@@ -12,5 +12,5 @@ Meteor.publish('products.all', function (limit, sort = {createdAt: -1}) {
 Meteor.publish('products.one', function (_id) {
   return Products.find({
       _id: {$eq: _id}
-  });
+  }, {limit: 1});
 });

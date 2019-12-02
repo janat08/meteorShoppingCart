@@ -1,20 +1,29 @@
 import './cart.html';
-import { Carts } from '/imports/api/carts/carts.js';
+import { Carts, Products } from '/imports/api/cols.js';
 
 Template.cart.onCreated(function cartOnCreated() {
   // counter starts at 0
-  this.counter = new ReactiveVar(0);
+  this.autorun(()=>{
+    SubsCache.subscribe('carts.all')
+    SubsCache.subscribe('products.all')
+  })
+  this.autorun(()=>{
+      const local = LCarts.find().fetch()
+      //insert into carts, current cart with status open
+      
+  })
 });
 
 Template.cart.helpers({
-  counter() {
-    return Template.instance().counter.get();
+  products() {
+    return Carts.find({userId: Meteor.userId, open: true}).forEach(x=>{
+      Object.assign(x, Products.findOne(x.productId, {_id: -1, description: -1}))
+    })
   },
 });
 
 Template.cart.events({
-  'click button'(event, instance) {
-    // increment the counter when button is clicked
-    instance.counter.set(instance.counter.get() + 1);
+  'click .jsPay'(event, instance) {
+    //navigate somewhere
   },
 });

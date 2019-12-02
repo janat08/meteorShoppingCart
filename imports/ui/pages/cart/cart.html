@@ -1,4 +1,6 @@
 <template name="cart">
-  <button>Click Me</button>
-  <p>You've pressed the button {{counter}} times.</p>
+  {{#each product in products}}
+      {{> cartProduct product=product }}
+  {{/each}}
+  <button class="jsPay">Pay</button>
 </template>
