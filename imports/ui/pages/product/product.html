@@ -3,7 +3,17 @@
     Title: {{title}}
     Price: {{price}}
     Description: {{description}}
+    {{#each imageIds}}
+      {{> imageShow}}
+    {{/each}}
+      <!--<img src="{{image.link}}" alt="{{image.name}}" />-->
     <a href='/productForm/{{_id}}'><button>Edit</button></a>
   {{/with}}
   <button class="jsBuy">buy</button>
+</template>
+
+<template name="imageShow">
+  {{#with link}}
+    <img src="{{link}}" alt="{{name}}" />
+  {{/with}}
 </template>

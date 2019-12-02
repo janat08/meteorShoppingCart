@@ -1,32 +1,42 @@
 import './product.html';
-import { Products } from '/imports/api/products/products.js';
+import { Products, ImagesFiles } from '/imports/api/cols.js';
 import { ReactiveDict } from 'meteor/reactive-dict';
+import { FlowRouter } from 'meteor/kadira:flow-router';
+
 Template.product.onCreated(function productsOnCreated() {
      this.autorun(() => {
         const id = FlowRouter.getParam("productId")
         SubsCache.subscribe('products.one', id)
+        SubsCache.subscribe('images.all')
      });
+       console.log(ImagesFiles.findOne("KRapXZ2mmWs44Stvq"))
+
 });
 
 Template.product.helpers({
   product(){
-    const state = Template.instance().state
-    //next page preloaded
-    return Products.findOne(FlowRouter.getParam("productId"))
+    var res = Products.findOne(FlowRouter.getParam("productId"))
+    // Object.assign(res, {imageIds: res.imageIds.map(x=>{
+    //   return ImagesFiles.findOne(x)
+    // })})
+    // console.log(res)
+    return res
   },
+  image(id){
+    console.log(123123, ImagesFiles.findOne(this) )
+    return ImagesFiles.findOne(this)
+  }
 });
 
 Template.product.events({
   'click .jsBuy'(event, instance) {
-    // increment the counter when button is clicked
-    console.log(instance)
-    // const id = FlowRouter.getParam("productId")
-    // const prev = LCarts.findOne(id)
-    // const obj = {_id: id, count: 1}
-    // if (prev && prev.count){
-    //   obj.count = prev.count+1
-    // } 
-    // LCarts.update({_id: FlowRouter.getParam("productId")}, obj, {upsert: true})
     Meteor.call('carts.upsert', FlowRouter.getParam("productId"))
   },
 });
+
+Template.imageShow.helpers({
+  link(id){
+    return ImagesFiles.findOne(this+"")
+  },
+
+})
