@@ -33,6 +33,6 @@ Template.cart.helpers({
 
 Template.cart.events({
   'click .jsPay'(event, instance) {
-    //navigate somewhere
+    Meteor.call('orders.insert')
   },
 });

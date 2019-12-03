@@ -9,3 +9,6 @@ import '../../api/products/server/publications.js';
 
 import '../../api/images/methods.js';
 import '../../api/images/server/publications.js';
+
+import '../../api/orders/methods.js';
+import '../../api/orders/server/publications.js';
