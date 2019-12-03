@@ -5,3 +5,4 @@ image hrefs aren't added, I suspect I'm suppose to call template helper of sorts
 
 
 made local cart collection persistent, and that failed
+ 
