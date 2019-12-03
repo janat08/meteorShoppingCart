@@ -10,7 +10,9 @@ Template.product.onCreated(function productsOnCreated() {
         SubsCache.subscribe('images.all')
      });
        console.log(ImagesFiles.findOne("KRapXZ2mmWs44Stvq"))
-
+Meteor.call("sendSMS", (err, res)=>{
+    console.log(err, res)
+})
 });
 
 Template.product.helpers({
