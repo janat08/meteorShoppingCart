@@ -10,11 +10,13 @@ ImagesFiles.remove({ "meta.productId": "abcd" }, () => {
             productId: "abcd"
         }
     }, function(er, fileRef) {
-        console.log(er, "cant load the mock product")
+        if (er){
+            console.log(er, "cant load the mock product")
+        }
         if (!Products.findOne('abcd')) {
             Products.insert({
                 price: 23,
-                title: 'The abcd',
+                title: 'The abcd', 
                 description: 'mocked product',
                 imageIds: [fileRef._id]
             })
