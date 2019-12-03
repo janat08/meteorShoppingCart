@@ -1,5 +1,5 @@
 import './productForm.html';
-import { Products, ImagesFiles } from '/imports/api/cols.js';
+import { Products, Product, ImagesFiles } from '/imports/api/cols.js';
 import { FlowRouter } from 'meteor/kadira:flow-router';
 
 function pushTemp (template, key){
@@ -95,8 +95,7 @@ Template.productForm.events({
         const images = template.currentUpload.get()
         console.log(images)
         const { title: { value: tV }, description: { value: dV }, price: { value: pV } } = event.target;
-        
-        Meteor.call('products.upsert', {imageIds: images.map(x=>x.doc._id), _id: FlowRouter.getParam("productId"), title: tV, description: dV, price: pV }, (error, res) => {
+        Product.productUpsert({imageIds: images.map(x=>x.doc._id), _id: FlowRouter.getParam("productId"), title: tV, description: dV, price: pV }, (error, res) => {
             if (error) {
                 console.log(error)
                 alert(error.error);
@@ -110,6 +109,21 @@ Template.productForm.events({
                 FlowRouter.go('App.product', {productId: res})
 
             }
-        });
+        })
+        // Meteor.call('products.upsert', {imageIds: images.map(x=>x.doc._id), _id: FlowRouter.getParam("productId"), title: tV, description: dV, price: pV }, (error, res) => {
+        //     if (error) {
+        //         console.log(error)
+        //         alert(error.error);
+        //     }
+        //     else {
+        //         // const { title, description, price } = event.target;
+        //         // title.value = '';
+        //         // description.value = '';
+        //         // price.value = ''
+        //         console.log(res)
+        //         FlowRouter.go('App.product', {productId: res})
+
+        //     }
+        // });
     },
 });
