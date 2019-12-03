@@ -15,4 +15,7 @@ Meteor.methods({
   'carts.decrement'(id){
     Carts.update({open: {$eq: true}, productId: {$eq: id}, count: {$gt: 1}}, {$inc: {count: -1}})
   },
+  'carts.price'(){
+    return Meteor.call('orders.price', Carts.find({open: true}).fetch())
+  }
 });

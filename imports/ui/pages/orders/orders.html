@@ -1,0 +1,9 @@
+<template name="orders">
+  {{#each order in orders}}
+      Paid: {{order.paid}}
+      Items: {{#each item in order.items}}
+        {{item.count}} of {{item.productId}}
+      {{/each}}
+  {{/each}}
+  <br>
+</template>

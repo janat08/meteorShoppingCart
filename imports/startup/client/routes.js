@@ -9,6 +9,7 @@ import '../../ui/pages/cart/cart.js'
 import '../../ui/pages/product/product.js'
 import '../../ui/pages/productForm/productForm.js'
 import '../../ui/pages/products/products.js'
+import '../../ui/pages/orders/orders.js'
 
 window.SubsCache = new SubsCache(5, 10);
 // window.LCarts = new Mongo.Collection(null);
@@ -54,7 +55,12 @@ FlowRouter.route('/products', {
     BlazeLayout.render('App_body', { main: 'products' });
   },
 });
-
+FlowRouter.route('/orders', {
+  name: 'App.orders',
+  action() {
+    BlazeLayout.render('App_body', { main: 'orders' });
+  },
+});
 FlowRouter.notFound = {
   action() {
     BlazeLayout.render('App_body', { main: 'App_notFound' });

@@ -2,63 +2,26 @@
 
 import { Mongo } from 'meteor/mongo';
 import SimpleSchema from 'simpl-schema';
-import { Class } from 'meteor/jagi:astronomy';
-import R from 'ramda'
 
 export const Products = new Mongo.Collection('products');
-export const Product = Class.create({
-    name: 'Product',
-    collection: Products,
-    fields: {
-        title: {
-            type: String,
-            validators: [{
-                type: 'maxLength',
-                param: 100
-            }]
-        },
-        description: {
-            type: String,
-            validators: [{
-                type: 'maxLength',
-                param: 500
-            }]
-        },
-        price: {
-            type: Number,
-            validators: [{
-                type: 'gte',
-                param: 0
-            }]
-        },
-        imageIds: {
-            type: [String],
-            optional: true
-        },
+const schema = new SimpleSchema({
+    title:{
+        type: String,
+        max: 100
     },
-    behaviors: {
-        slug: {
-            fieldName: "title",
-            slugFieldName: 'slug',
-            canUpdate: true,
-            unique: true,
-            separator: '-'
-        }
+    description: {
+        type: String,
+        max: 500
     },
-    meteorMethods: {
-        "productUpsert"({ _id, title, description, price, imageIds }){
-            if (_id){
-                const val = Product.findOne(_id).set({title, description, price}, {
-                    merge: true
-                })
-                val.set('imageIds', R.union(val.imageIds, imageIds))
-                val.save()
-            } else {
-                new Product({title, description, price, imageIds})
-            }
-        }
-    }
+    price: {
+        type: Number,
+        max: 9999999999999,
+        min: 0
+    },
+    imageIds: {
+        type: Array
+    },
+    'imageIds.$': SimpleSchema.RegEx.Id
+})
 
-});
-
-// Products.attachSchema(pSchema)
+Products.attachSchema(schema)

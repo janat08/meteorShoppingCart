@@ -2,29 +2,9 @@ import './productForm.html';
 import { Products, Product, ImagesFiles } from '/imports/api/cols.js';
 import { FlowRouter } from 'meteor/kadira:flow-router';
 
-function pushTemp (template, key){
-    const st = template[key]
-    
-    return (val)=>{
-        const res = st.get()
-        res.push(val)
-        st.set(res)
-    }
-}
-
-function modifyTemp(template, key, type){
-        const st = template[key]
-    
-    return (val)=>{
-        const res = st.get()
-        res[type](val)
-        st.set(res)
-    }
-}
-
 
 Template.productForm.onCreated(function() {
-    this.currentUpload = new ReactiveVar([]);
+    this.currentUpload = new ReactiveArray()
     this.autorun(() => {
         const id = FlowRouter.getParam("productId")
         SubsCache.subscribe('images.all', id)
@@ -36,9 +16,13 @@ Template.productForm.onCreated(function() {
 
 Template.productForm.helpers({
     currentUpload() {
-        const curUpload = Template.instance().currentUpload.get()
+        const curUpload = Template.instance().currentUpload.list()
         const ids = curUpload.filter(x=>x.doc).map(x=>x.doc._id)
-        return ImagesFiles.find({$or: [{_id: {$in: ids}},{"meta.productId": FlowRouter.getParam("productId")}]});
+        const pId = FlowRouter.getParam("productId")
+        const query = [{_id: {$in: ids}}]
+        console.log(curUpload, ids)
+        if (pId) query.push({"meta.productId": pId})
+        return ImagesFiles.find({$or: query});
     },
     product() {
         const res = Products.findOne(FlowRouter.getParam("productId"))
@@ -53,12 +37,12 @@ Template.productForm.events({
     },
     'change #fileInput' (e, template) {
         console.log( e.currentTarget.files)
-        const docPush = pushTemp(template, 'images')
-        const uploadPush = pushTemp(template, 'currentUpload')
+        const uploadPush = template.currentUpload.push
         const st = template.currentUpload
+        window.ab = template.currentUpload
         if (e.currentTarget.files && e.currentTarget.files[0]) {
-            for (var i = 0; i < e.currentTarget.files.length; i++) {
-                // We upload only one file, in case
+            Array.from(e.currentTarget.files).forEach((x,i)=>{
+                                // We upload only one file, in case
                 // multiple files were selected
                 const upload = ImagesFiles.insert({
                     file: e.currentTarget.files[i],
@@ -66,12 +50,12 @@ Template.productForm.events({
                     chunkSize: 'dynamic',
                     meta: {
                         uploader: Meteor.userId(),
-                        productId: FlowRouter.getParam("productId")
+                        productId: FlowRouter.getParam("productId"),
                     },
                 }, false);
 
                 upload.on('start', function() {
-                    uploadPush({upload: this})
+                    st.push({upload: this, _id: i})
                 });
 
                 upload.on('end', function(error, fileObj) {
@@ -81,21 +65,22 @@ Template.productForm.events({
                     else {
                         // alert('File "' + fileObj.name + '" successfully uploaded');
                     }
-                    const inter = st.get()
-                    inter[i-1].doc = fileObj
-                    st.set(inter)
+                    st[st.findIndex(x=>x._id==i)].doc = fileObj
+                    // inter[i-1].doc = fileObj
+                    // st.set(inter)
                 });
 
                 upload.start();
-            }
+            })
+
         }
     },
     'submit' (event, template) {
         event.preventDefault();
-        const images = template.currentUpload.get()
+        const images = template.currentUpload
         console.log(images)
         const { title: { value: tV }, description: { value: dV }, price: { value: pV } } = event.target;
-        Product.productUpsert({imageIds: images.map(x=>x.doc._id), _id: FlowRouter.getParam("productId"), title: tV, description: dV, price: pV }, (error, res) => {
+        Meteor.call('products.upsert', {imageIds: images.map(x=>x.doc._id), _id: FlowRouter.getParam("productId"), title: tV, description: dV, price: pV }, (error, res) => {
             if (error) {
                 console.log(error)
                 alert(error.error);
@@ -110,20 +95,5 @@ Template.productForm.events({
 
             }
         })
-        // Meteor.call('products.upsert', {imageIds: images.map(x=>x.doc._id), _id: FlowRouter.getParam("productId"), title: tV, description: dV, price: pV }, (error, res) => {
-        //     if (error) {
-        //         console.log(error)
-        //         alert(error.error);
-        //     }
-        //     else {
-        //         // const { title, description, price } = event.target;
-        //         // title.value = '';
-        //         // description.value = '';
-        //         // price.value = ''
-        //         console.log(res)
-        //         FlowRouter.go('App.product', {productId: res})
-
-        //     }
-        // });
     },
 });
