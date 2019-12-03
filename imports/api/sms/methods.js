@@ -24,6 +24,6 @@ Meteor.methods({
     }
 })
 
-Meteor.call('sendSMS', (err,res)=>{
-    console.log(err, res)
-})
+// Meteor.call('sendSMS', (err,res)=>{
+//     console.log(err, res)
+// })

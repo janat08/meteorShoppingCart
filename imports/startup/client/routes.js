@@ -5,7 +5,6 @@ import { BlazeLayout } from 'meteor/kadira:blaze-layout';
 import '../../ui/layouts/body/body.js';
 import '../../ui/pages/home/home.js';
 import '../../ui/pages/not-found/not-found.js';
-import '../../ui/pages/images/images.js'
 import '../../ui/pages/cart/cart.js'
 import '../../ui/pages/product/product.js'
 import '../../ui/pages/productForm/productForm.js'
@@ -34,12 +33,6 @@ FlowRouter.route('/product/:productId', {
   name: 'App.product',
   action() {
     BlazeLayout.render('App_body', { main: 'product' });
-  },
-});
-FlowRouter.route('/images/:productId', {
-  name: 'App.images',
-  action() {
-    BlazeLayout.render('App_body', { main: 'images' });
   },
 });
 
