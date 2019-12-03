@@ -34,7 +34,7 @@ Template.product.events({
 });
 
 Template.imageShow.helpers({
-  link(id){
+  images(){
     return ImagesFiles.findOne(this+"")
   },
 

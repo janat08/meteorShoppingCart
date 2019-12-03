@@ -1,3 +1,6 @@
 add cart userid Logic, filter by userid in upsert, and filter by it in template helper
 validate remove methods (images validated)
 order method should query against closed cart
+
+
+error if image are uploaded in series
