@@ -1,9 +1,10 @@
 import './cartProduct.html';
-// import { Carts, Products } from '/imports/api/cols.js';
+
 
 Template.cartProduct.events({
   'click .jsRemove'(event, instance) {
-    Meteor.call('carts.remove', instance.data.product.productId)
+    console.log(instance.data)
+    Meteor.call('carts.remove', instance.data.product._id)
   },
   'click .jsIncrement'(event, instance){
       Meteor.call('carts.upsert', instance.data.product.productId)

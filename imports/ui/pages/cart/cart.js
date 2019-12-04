@@ -1,5 +1,5 @@
 import './cart.html';
-import { Carts, Products } from '/imports/api/cols.js';
+import { Carts, Products, ImagesFiles } from '/imports/api/cols.js';
 import '../../components/cartProduct/cartProduct.js'
 import { FlowRouter } from 'meteor/kadira:flow-router';
 
@@ -8,6 +8,7 @@ Template.cart.onCreated(function cartOnCreated() {
   this.autorun(()=>{
     SubsCache.subscribe('carts.all')
     SubsCache.subscribe('products.all')
+    SubsCache.subscribe('images.all')
   })
   // this.autorun()
 });
@@ -16,6 +17,7 @@ Template.cart.helpers({
   products() {
     const res = Carts.find({open: true}).map(x=>{
       const prod = Products.findOne(x.productId)
+      prod.imageIds = prod.imageIds.length && ImagesFiles.findOne(prod.imageIds[0])
       return Object.assign(x, {product: prod, total: prod.price*x.count})
     })
     return res

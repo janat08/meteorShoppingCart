@@ -6,7 +6,6 @@ import { Carts } from './carts.js';
 
 Meteor.methods({
   'carts.insert'(products) {
-    console.log(this.userId)
     Carts.upsert({open: {$eq: true}}, {products: products, open: true})
   },
   'carts.upsert'(id){
@@ -17,5 +16,10 @@ Meteor.methods({
   },
   'carts.price'(){
     return Meteor.call('orders.price', Carts.find({open: true}).fetch())
+  },
+  'carts.remove'(id){
+    console.log(id)
+    check(id, String)
+    Carts.remove(id)
   }
 });
