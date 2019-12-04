@@ -1,10 +1,11 @@
 import './products.html';
-import { Products } from '/imports/api/products/products.js';
+import { Products, ImagesFiles } from '/imports/api/cols.js';
 import { ReactiveDict } from 'meteor/reactive-dict';
 Template.products.onCreated(function productsOnCreated() {
      this.state = new ReactiveDict({limit: 20})
      this.autorun(() => {
         SubsCache.subscribe('products.all', this.state.get('limit'))
+        SubsCache.subscribe('images.all')
      });
 });
 
@@ -12,16 +13,20 @@ Template.products.helpers({
   products(){
     const state = Template.instance().state
     //next page preloaded
-    return Products.find({}, {limit: state.get('limit')-10})
+    var res = Products.find({}, {limit: state.get('limit')-10})
+    res = res.map(x=>{
+      x.imageIds = x.imageIds.length && ImagesFiles.findOne(x.imageIds[0])
+      console.log()
+      return x
+    })
+    console.log(res)
+    return res
   },
   allLoaded(){
     const state = Template.instance().state
     const count = state.get('limit')-10
     //add 10 so that we let use load the last 10 items
     return Products.find({}, {limit: count+10}).count() < count
-  },
-  counter() {
-    return Template.instance().counter.get();
   },
 });
 

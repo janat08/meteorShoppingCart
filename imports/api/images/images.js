@@ -5,4 +5,4 @@ import { FilesCollection } from 'meteor/ostrio:files';
 
 export const ImagesCollection = new Mongo.Collection('images')
 
-export const ImagesFiles = new FilesCollection({collection: ImagesCollection});
+export const ImagesFiles = new FilesCollection({collection: ImagesCollection, storagePath: "C:\shop_pix"});
